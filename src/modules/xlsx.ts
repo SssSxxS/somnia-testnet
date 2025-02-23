@@ -18,7 +18,7 @@ export const createWalletsXlsx = async (wallets: Wallet[]) => {
   sheet.columns = [
     { header: 'ID', key: 'id', width: 5, style: { alignment: { horizontal: 'right' } } },
     { header: 'Toggle', key: 'toggle', width: 10, style: { alignment: { horizontal: 'center' } } },
-    { header: 'Proxy (optional) ip:port:username:password', key: 'proxy', width: 10 },
+    { header: 'Proxy (optional) host:port:username:password', key: 'proxy', width: 10 },
     { header: 'Private Key', key: 'privateKey', width: 10 },
     { header: 'Address', key: 'address', width: 45 },
     { header: 'Explorer', key: 'explorerUrl', width: 10, style: { alignment: { horizontal: 'center' } } },

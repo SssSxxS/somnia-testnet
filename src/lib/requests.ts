@@ -1,13 +1,4 @@
-import type { HttpsProxyAgent } from 'https-proxy-agent'
-
-export interface FetchOptions {
-  method: string
-  headers?: HeadersInit
-  body?: string | FormData | URLSearchParams | null
-  agent?: HttpsProxyAgent<string>
-}
-
-export const getDefaultHeaders = (origin: string) => ({
+export const getDefaultPostHeaders = (origin: string) => ({
   Accept: '*/*',
   'Accept-Encoding': 'gzip, deflate, br, zstd',
   'Accept-Language': 'en-US,en;q=0.9',

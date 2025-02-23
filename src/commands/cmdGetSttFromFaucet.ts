@@ -1,8 +1,9 @@
-import { getDefaultHeaders, type FetchOptions } from '@/lib/defaultFetch'
 import { logger } from '@/lib/logger'
+import { getDefaultPostHeaders } from '@/lib/requests'
 import { getRandomInt, parseProxy, shuffleArray } from '@/lib/utils'
 import { getWalletsData } from '@/modules/xlsx'
 import { FAUCET_ATTEMPTS, FAUCET_SLEEP_RANGE, SHUFFLE_WALLETS, SOMNIA_TESTNET_EXPLORER_URL } from '@data/config'
+import axios, { AxiosError, type AxiosRequestConfig } from 'axios'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 
 export const cmdGetSttFromFaucet = async () => {
@@ -15,38 +16,35 @@ export const cmdGetSttFromFaucet = async () => {
     for (const wallet of wallets) {
       try {
         const url = 'https://testnet.somnia.network/api/faucet'
-
-        let fetchOptions: FetchOptions = {
-          method: 'POST',
-          headers: getDefaultHeaders('https://testnet.somnia.network'),
-          body: JSON.stringify({ address: wallet.address }),
+        let config: AxiosRequestConfig = {
+          headers: getDefaultPostHeaders('https://testnet.somnia.network'),
         }
 
         if (wallet.proxy) {
           const proxy = parseProxy(wallet.proxy)
-          const agent = new HttpsProxyAgent(`http://${proxy.username}:${proxy.password}@${proxy.ip}:${proxy.port}`)
-          fetchOptions = {
-            ...fetchOptions,
-            agent,
+          const agent = new HttpsProxyAgent(`http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`)
+          config = {
+            ...config,
+            httpAgent: agent,
+            httpsAgent: agent,
           }
         }
-        logger.debug(`(${wallet.id}) Fetch options:%o`, fetchOptions)
+
         for (let i = 0; i < FAUCET_ATTEMPTS; i++) {
-          const response = await fetch(url, fetchOptions)
-          logger.info(`(${wallet.id}) Sent request to faucet${wallet.proxy ? ` through ${wallet.proxy} proxy` : ''}`)
-          const responseData = await response.json()
-          if (!response.ok) {
-            logger.warn(
-              `(${wallet.id}) Response is not ok: ${response.status} ${response.statusText}\n%o`,
-              responseData
-            )
-            logger.info(`(${wallet.id}) Retrying...`)
-            await Bun.sleep(3000)
-            continue
-          } else {
-            const link = `${SOMNIA_TESTNET_EXPLORER_URL}/tx/${responseData.data.hash}}`
+          try {
+            const response = await axios.post(url, { address: wallet.address }, config)
+            const link = `${SOMNIA_TESTNET_EXPLORER_URL}/tx/${response.data.data.hash}}`
             logger.success(`(${wallet.id}) Tokens should be received ${link}`)
             break
+          } catch (err) {
+            if (err instanceof AxiosError) {
+              logger.warn(`(${wallet.id}) Failed request: %o`, err.response?.data)
+              if (i === FAUCET_ATTEMPTS - 1) break
+              logger.info(`Retrying in 3 seconds...`)
+              await Bun.sleep(3000)
+            } else {
+              logger.error(`(${wallet.id}) Unexpected error: %o`, err)
+            }
           }
         }
 

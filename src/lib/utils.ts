@@ -22,20 +22,20 @@ export const getRandomFloat = (min: number, max: number) => {
 /* -------------------------------------------------------------------------- */
 
 export interface ProxyConfig {
-  ip: string
+  host: string
   port: string
   username: string
   password: string
 }
 
 export const parseProxy = (proxyString: string): ProxyConfig => {
-  const [ip, port, username, password] = proxyString.split(':')
+  const [host, port, username, password] = proxyString.split(':')
 
-  if (!ip || !port || !username || !password) {
-    throw new Error('Invalid proxy string format. Expected format: ip:port:username:password')
+  if (!host || !port || !username || !password) {
+    throw new Error('Invalid proxy string format. Expected format: "host:port:username:password"')
   }
 
-  return { ip, port, username, password }
+  return { host, port, username, password }
 }
 
 /* -------------------------------------------------------------------------- */
