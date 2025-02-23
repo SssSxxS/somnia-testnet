@@ -2,9 +2,15 @@
 
 A command-line interface tool for interacting with the Somnia Testnet blockchain
 
- [![My GitHub](https://img.shields.io/badge/@yofomo-Telegram-blue)](https://t.me/yofomo)
+[![Telegram](https://img.shields.io/badge/Telegram-26A5E4?logo=telegram&logoColor=fff&style=flat-square)](https://t.me/yofomo)
 
-![Alt text](https://i.postimg.cc/Bt9DySM1/Screenshot-2025-02-23-104749.png)
+![Interface](https://i.postimg.cc/Bt9DySM1/Screenshot-2025-02-23-104749.png)
+
+<div align="center">
+
+[![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)](#) [![Bun](https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](#)
+
+</div>
 
 ## Prerequisites
 
@@ -17,18 +23,24 @@ A command-line interface tool for interacting with the Somnia Testnet blockchain
 ## Installation
 
 1. Clone the repository:
+
 ```
 git clone https://github.com/SssSxxS/somnia-testnet.git
 ```
+
 2. Install dependencies and Start the application:
-  - Use the provided batch file:
-  ```
-  START.bat
-  ```
-  - Or do it manually
-  ```
-  bun install && bun .\index.ts
-  ```
+
+- Use the provided batch file:
+
+```
+START.bat
+```
+
+- Or do it manually
+
+```
+bun install && bun .\index.ts
+```
 
 ## Getting Started
 
@@ -38,5 +50,5 @@ git clone https://github.com/SssSxxS/somnia-testnet.git
 4. Update the wallets information by selecting "Create or Update Wallets Table"
 5. Toggle wallets "ON"/"OFF" as needed
 6. Edit the `config.ts` file in the `data` folder as needed
-![Alt text](https://i.postimg.cc/G2t53Krx/Screenshot-2025-02-23-112255.png)
-8. Use other menu options 
+   ![Config](https://i.postimg.cc/G2t53Krx/Screenshot-2025-02-23-112255.png)
+7. Use other menu options
