@@ -22,7 +22,7 @@ export const createWalletsXlsx = async (wallets: Wallet[]) => {
     { header: 'Private Key', key: 'privateKey', width: 10 },
     { header: 'Address', key: 'address', width: 45 },
     { header: 'Explorer', key: 'explorerUrl', width: 10, style: { alignment: { horizontal: 'center' } } },
-    { header: 'Balance STT', key: 'balance', width: 10 },
+    { header: 'Balance $STT', key: 'balance', width: 10 },
     { header: '', key: 'empty', width: 9 },
   ]
 
