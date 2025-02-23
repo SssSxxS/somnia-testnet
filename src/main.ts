@@ -26,7 +26,7 @@ const menuCommands: MenuCommand[] = [
     action: async () => await cmdGetSttFromFaucet(),
   },
   {
-    name: 'Send $STT to Random wallets',
+    name: 'Send $STT to random address',
     action: async () => await cmdSendSttToRandomAddress(),
   },
   {
