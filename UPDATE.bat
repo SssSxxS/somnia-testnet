@@ -1,3 +1,4 @@
 @echo off
-git pull --autostash
+git fetch
+git reset --hard origin/main
 pause
