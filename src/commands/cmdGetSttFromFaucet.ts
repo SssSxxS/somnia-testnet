@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger'
-import { getDefaultPostHeaders } from '@/lib/requests'
+import { defaultHeaders } from '@/lib/requests'
 import { getRandomInt, parseProxy, shuffleArray } from '@/lib/utils'
 import { getWalletsData } from '@/modules/xlsx'
 import { FAUCET_ATTEMPTS, FAUCET_SLEEP_RANGE, SHUFFLE_WALLETS, SOMNIA_TESTNET_EXPLORER_URL } from '@data/config'
@@ -17,7 +17,7 @@ export const cmdGetSttFromFaucet = async () => {
       try {
         const url = 'https://testnet.somnia.network/api/faucet'
         let config: AxiosRequestConfig = {
-          headers: getDefaultPostHeaders('https://testnet.somnia.network'),
+          headers: defaultHeaders,
         }
 
         if (wallet.proxy) {
