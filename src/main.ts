@@ -1,12 +1,16 @@
-import { cmdCreateOrUpdateWalletsTable } from '@/commands/cmdCreateOrUpdateWalletsTable'
 import { cmdDeployErc20 } from '@/commands/cmdDeployErc20'
 import { cmdDeployErc721 } from '@/commands/cmdDeployErc721'
 import { cmdExit } from '@/commands/cmdExit'
 import { cmdGetSttFromFaucet } from '@/commands/cmdGetSttFromFaucet'
 import { cmdSendSttToRandomAddress } from '@/commands/cmdSendSttToRandomAddress'
+import { cmdCreateOrUpdateWalletsTable } from '@/commands/xlsx/cmdCreateOrUpdateWalletsTable'
 import { logger } from '@/lib/logger'
 import { select, Separator } from '@inquirer/prompts'
 import chalk from 'chalk'
+import { cmdOffAll } from './commands/xlsx/cmdOffAll'
+import { cmdOffZeroBalance } from './commands/xlsx/cmdOffZeroBalance'
+import { cmdOnAll } from './commands/xlsx/cmdOnAll'
+import { cmdOnZeroBalance } from './commands/xlsx/cmdOnZeroBalance'
 
 type MenuCommand = {
   name: string
@@ -19,6 +23,22 @@ const menuCommands: MenuCommand[] = [
   {
     name: 'Create or Update Wallets Table',
     action: async () => await cmdCreateOrUpdateWalletsTable(),
+  },
+  {
+    name: '"ON" Wallets with zero balance',
+    action: async () => await cmdOnZeroBalance(),
+  },
+  {
+    name: '"OFF" Wallets with zero balance',
+    action: async () => await cmdOffZeroBalance(),
+  },
+  {
+    name: '"ON" All Wallets',
+    action: async () => await cmdOnAll(),
+  },
+  {
+    name: '"OFF" All Wallets',
+    action: async () => await cmdOffAll(),
     addSeparator: true,
   },
   {
