@@ -34,11 +34,10 @@ export const cmdGetSttFromFaucet = async () => {
           try {
             const response = await axios.post(url, { address: wallet.address }, config)
             logger.debug(`(${wallet.id}) Response data: %o`, response.data)
-            if (response.status === 200) {
-              const link = `${SOMNIA_TESTNET_EXPLORER_URL}/tx/${response.data.data.hash}}`
-              logger.success(`(${wallet.id}) Tokens should be received ${link}`)
-              break
-            }
+            let link = ''
+            if (response.data?.data?.hash) link = `${SOMNIA_TESTNET_EXPLORER_URL}/tx/${response.data.data.hash}}`
+            logger.success(`(${wallet.id}) Tokens should be received ${link}`)
+            break
           } catch (err) {
             if (err instanceof AxiosError) {
               logger.warn(`(${wallet.id}) Failed request: %o`, err.response?.data)
