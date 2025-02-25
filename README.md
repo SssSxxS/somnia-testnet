@@ -4,7 +4,7 @@ A command-line interface tool for interacting with the Somnia Testnet blockchain
 
 [![Telegram](https://img.shields.io/badge/Telegram-26A5E4?logo=telegram&logoColor=fff&style=flat-square)](https://t.me/yofomo)
 
-![Interface](https://i.postimg.cc/yddYmXfW/Screenshot-2025-02-23-221621.png)
+![Interface](https://i.postimg.cc/SKpSghtH/Screenshot-2025-02-25-132337.png)
 
 <div align="center">
 
