@@ -46,7 +46,7 @@ bun install && bun .\index.ts
 
 1. Initialize your wallet table by selecting "Create or Update Wallets Table"
 2. Open the generated `wallets.xlsx` file in the `data` folder
-3. Add your private keys and proxy to the table
+3. Add your private keys and proxy (all formats) to the table
 4. Update the wallets information by selecting "Create or Update Wallets Table"
 5. Toggle wallets "ON"/"OFF" as needed
 6. Edit the `config.ts` file in the `data` folder as needed
