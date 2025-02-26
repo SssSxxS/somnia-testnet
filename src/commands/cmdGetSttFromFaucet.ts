@@ -22,7 +22,11 @@ export const cmdGetSttFromFaucet = async () => {
 
         if (wallet.proxy) {
           const proxy = parseProxy(wallet.proxy)
-          const agent = new HttpsProxyAgent(`http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`)
+          const proxyUrl =
+            proxy.username && proxy.password
+              ? `http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`
+              : `http://${proxy.host}:${proxy.port}`
+          const agent = new HttpsProxyAgent(proxyUrl)
           config = {
             ...config,
             httpAgent: agent,

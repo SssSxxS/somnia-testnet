@@ -24,18 +24,42 @@ export const getRandomFloat = (min: number, max: number) => {
 export interface ProxyConfig {
   host: string
   port: string
-  username: string
-  password: string
+  username?: string
+  password?: string
 }
 
 export const parseProxy = (proxyString: string): ProxyConfig => {
-  const [host, port, username, password] = proxyString.split(':')
+  // Handle different proxy formats:
+  // username:password@host:port
+  // host:port:username:password
+  // host:port
 
-  if (!host || !port || !username || !password) {
-    throw new Error('Invalid proxy string format. Expected format: "host:port:username:password"')
+  const cleanProxyString = proxyString.replace(/^https?:\/\//, '')
+
+  let host: string = ''
+  let port: string = ''
+  let username: string = ''
+  let password: string = ''
+
+  if (cleanProxyString.includes('@')) {
+    // username:password@host:port
+    const [credentials, hostPort] = cleanProxyString.split('@')
+    ;[username, password] = credentials.split(':')
+    ;[host, port] = hostPort.split(':')
+  } else {
+    const parts = cleanProxyString.split(':')
+    if (parts.length === 2)
+      // host:port
+      [host, port] = parts
+    else if (parts.length === 4)
+      // host:port:username:password
+      [host, port, username, password] = parts
+  }
+
+  if (!host || !port) {
+    throw new Error('Invalid proxy format.')
   }
 
   return { host, port, username, password }
 }
-
 /* -------------------------------------------------------------------------- */

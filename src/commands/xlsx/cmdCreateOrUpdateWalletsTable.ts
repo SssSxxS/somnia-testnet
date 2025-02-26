@@ -50,7 +50,7 @@ export const cmdCreateOrUpdateWalletsTable = async () => {
         {
           id: 2,
           toggle: 'OFF',
-          proxy: 'host:port:username:password',
+          proxy: 'host:port',
           privateKey: '0x123...',
           address: '0xAbc...',
           explorerUrl: '',
@@ -59,7 +59,7 @@ export const cmdCreateOrUpdateWalletsTable = async () => {
         {
           id: 3,
           toggle: 'OFF',
-          proxy: '',
+          proxy: 'https://username:password@host:port',
           privateKey: '0x123...',
           address: '0xAbc...',
           explorerUrl: '',
