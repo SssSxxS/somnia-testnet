@@ -42,7 +42,7 @@ export const cmdGetSttFromFaucet = async () => {
             if (err instanceof AxiosError) {
               logger.warn(`(${wallet.id}) Failed request: %o`, err.response?.data)
               if (i === FAUCET_ATTEMPTS - 1) break
-              if (JSON.stringify(err.response?.data?.error).includes('Rate limit')) break
+              if (JSON.stringify(err.response?.data).includes('Rate limit')) break
               logger.info(`Retrying in 3 seconds...`)
               await Bun.sleep(3000)
             } else {
