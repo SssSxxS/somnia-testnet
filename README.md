@@ -52,3 +52,34 @@ bun install && bun .\index.ts
 6. Edit the `config.ts` file in the `data` folder as needed
    ![Config](https://i.postimg.cc/13QFp2Dt/Screenshot-2025-02-23-221909.png)
 7. Use other menu options
+
+## Errors
+
+- You have exceeded the rate limit for the IP address
+
+```
+Failed request: {
+  error: 'Rate limit exceeded. Maximum 10 requests per IP per 24 hours.'
+}
+```
+
+- The tokens may come later
+
+```
+Failed request: {
+  success: false,
+  error: 'Request in progress',
+  details: 'Another request for this address is being processed'
+}
+```
+
+- I don't know wtf is this
+
+```
+Failed request: 'An error occurred with your deployment\n' +
+  '\n' +
+  'FUNCTION_INVOCATION_TIMEOUT\n' +
+  '\n' +
+  'fra1::xk92t-177481905264-a7c13be8f24d\n' +
+  ''
+```
