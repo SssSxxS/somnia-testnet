@@ -9,7 +9,7 @@ export const cmdOffAll = async () => {
     for (const wallet of wallets) {
       updatedWallets.push({ ...wallet, toggle: 'OFF' })
     }
-
+    logger.info(`"ON" 0 wallets, "OFF" ${updatedWallets.length} wallets`)
     await createWalletsXlsx(updatedWallets)
   } catch (err) {
     logger.error('', err)
