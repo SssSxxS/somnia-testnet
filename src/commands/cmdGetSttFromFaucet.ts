@@ -38,15 +38,17 @@ export const cmdGetSttFromFaucet = async () => {
           try {
             const response = await axios.post(url, { address: wallet.address }, config)
             logger.debug(`(${wallet.id}) Response data: %o`, response.data)
-            let link = ''
-            if (response.data?.data?.hash) link = `${SOMNIA_TESTNET_EXPLORER_URL}/tx/${response.data.data.hash}`
-            logger.success(`(${wallet.id}) Tokens should be received ${link}`)
+
+            if (response.data?.success) logger.success(`(${wallet.id}) Tokens should be received`)
+            else logger.success(`(${wallet.id}) Response: %o`, response.data)
             break
           } catch (err) {
             if (err instanceof AxiosError) {
               logger.warn(`(${wallet.id}) Failed request: %o`, err.response?.data)
               if (i === FAUCET_ATTEMPTS - 1) break
-              if (err.response?.data && JSON.stringify(err.response?.data).includes('Rate limit')) break
+              if (err.response?.data && JSON.stringify(err.response?.data).includes('Bot detected')) break
+              if (err.response?.data && JSON.stringify(err.response?.data).includes('Request in progress')) break
+              if (err.response?.data && JSON.stringify(err.response?.data).includes('24 hours')) break
               logger.info(`Retrying in 3 seconds...`)
               await Bun.sleep(3000)
             } else {
