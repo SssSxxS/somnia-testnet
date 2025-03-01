@@ -46,6 +46,7 @@ export const cmdGetSttFromFaucet = async () => {
             if (err instanceof AxiosError) {
               logger.warn(`(${wallet.id}) Failed request: %o`, err.response?.data)
               if (i === FAUCET_ATTEMPTS - 1) break
+              if (err.response?.data && JSON.stringify(err.response?.data).includes('Server is busy')) break
               if (err.response?.data && JSON.stringify(err.response?.data).includes('Bot detected')) break
               if (err.response?.data && JSON.stringify(err.response?.data).includes('Request in progress')) break
               if (err.response?.data && JSON.stringify(err.response?.data).includes('24 hours')) break
