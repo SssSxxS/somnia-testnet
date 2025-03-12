@@ -11,6 +11,10 @@ import { cmdOffAll } from './commands/xlsx/cmdOffAll'
 import { cmdOffZeroBalance } from './commands/xlsx/cmdOffZeroBalance'
 import { cmdOnAll } from './commands/xlsx/cmdOnAll'
 import { cmdOnZeroBalance } from './commands/xlsx/cmdOnZeroBalance'
+import { cmdMintPong } from './commands/cmdMintPong'
+import { cmdMintPing } from './commands/cmdMintPing'
+import { cmdSwapPong } from './commands/cmdSwapPong'
+import { cmdSwapPing } from './commands/cmdSwapPing'
 
 type MenuCommand = {
   name: string
@@ -56,6 +60,23 @@ const menuCommands: MenuCommand[] = [
   {
     name: 'Deploy ERC-721 smart-contract',
     action: async () => await cmdDeployErc721(),
+    addSeparator: true,
+  },
+  {
+    name: 'Mint $PONG | https://testnet.somnia.network/swap',
+    action: async () => await cmdMintPong(),
+  },
+  {
+    name: 'Mint $PING | https://testnet.somnia.network/swap',
+    action: async () => await cmdMintPing(),
+  },
+  {
+    name: 'Swap $PONG | https://testnet.somnia.network/swap',
+    action: async () => await cmdSwapPong(),
+  },
+  {
+    name: 'Swap $PING | https://testnet.somnia.network/swap',
+    action: async () => await cmdSwapPing(),
     addSeparator: true,
   },
   {

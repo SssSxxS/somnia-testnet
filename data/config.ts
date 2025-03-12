@@ -10,3 +10,7 @@ export const RANDOM_SEND_AMOUNT = [0.001, 0.005, 0.01] // 0.001/0.005/0.01 $STT,
 export const RANDOM_SEND_SLEEP_RANGE = [100, 300] // [min, max] in seconds
 
 export const DEPLOY_SLEEP_RANGE = [100, 300] // [min, max] in seconds
+
+export const MINT_PONGPING_SLEEP_RANGE = [100, 300] // [min, max] in seconds
+export const SWAP_PONGPING_AMOUNT = [100, 300] // [min, max] in $PONG/$PING
+export const SWAP_PONGPING_SLEEP_RANGE = [100, 300] // [min, max] in seconds

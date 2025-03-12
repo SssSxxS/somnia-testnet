@@ -1,17 +1,10 @@
 import { abiERC20Token, abiERC721Token } from '@/contracts/abis'
-import { bytecodeERC20Token, bytecodeERC721Token } from '@/contracts/bytecodes'
+import { bytecodeERC20Token, bytecodeERC721Token, bytecodeMintPongPing } from '@/contracts/bytecodes'
 import { getRandomName } from '@/contracts/names'
 import { getRandomSymbol } from '@/contracts/symbols'
 import { getRandomInt } from '@/lib/utils'
 import { SOMNIA_TESTNET_RPC_URL } from '@data/config'
 import { ethers } from 'ethers'
-
-// export const getGasPrice = async () => {
-//   const provider = new ethers.JsonRpcProvider(SOMNIA_TESTNET_RPC_URL)
-//   const feeData = await provider.getFeeData()
-//   const gasPrice = ethers.formatUnits(feeData.gasPrice ? feeData.gasPrice : 0, 'gwei')
-//   return gasPrice
-// }
 
 export const getAddressFromPrivateKey = async (privateKey: string) => {
   const wallet = new ethers.Wallet(privateKey)
@@ -63,4 +56,74 @@ export const deployErc721 = async (privateKey: string) => {
   const contract = await contractFactory.deploy(name, symbol)
   const deployedContract = await contract.waitForDeployment()
   return deployedContract.deploymentTransaction()
+}
+
+export const mintPongPing = async (privateKey: string, contractAddress: string) => {
+  const provider = new ethers.JsonRpcProvider(SOMNIA_TESTNET_RPC_URL)
+  const signer = new ethers.Wallet(privateKey, provider)
+
+  const tx = {
+    to: contractAddress,
+    data: bytecodeMintPongPing(signer.address),
+  }
+
+  return signer.sendTransaction(tx)
+}
+
+export const approveToken = async (
+  privateKey: string,
+  tokenAddress: string,
+  spenderAddress: string,
+  amount: string
+) => {
+  const tokenAbi = [
+    'function approve(address spender, uint256 amount) returns (bool)',
+    'function decimals() view returns (uint8)',
+  ]
+
+  const provider = new ethers.JsonRpcProvider(SOMNIA_TESTNET_RPC_URL)
+  const wallet = new ethers.Wallet(privateKey, provider)
+  const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, wallet)
+  const decimals = await tokenContract.decimals()
+  const amountWithDecimals = ethers.parseUnits(amount, decimals)
+
+  const tx = await tokenContract.approve(spenderAddress, amountWithDecimals)
+  const receipt = await tx.wait()
+
+  return receipt
+}
+
+export const swapToken = async (
+  privateKey: string,
+  tokenIn: string,
+  tokenOut: string,
+  amountIn: number,
+  recipient: string,
+  amountOutMinimum: string,
+  sqrtPriceLimitX96: number = 0,
+  deadline: number = 0
+) => {
+  const provider = new ethers.JsonRpcProvider(SOMNIA_TESTNET_RPC_URL)
+  const signer = new ethers.Wallet(privateKey, provider)
+
+  const fee = 500
+  const swapRouterAddress = '0x6aac14f090a35eea150705f72d90e4cdc4a49b2c'
+
+  const functionSelector = '0x04e45aaf'
+  const amountInBigInt = ethers.parseUnits(String(amountIn), 18)
+  const amountOutMinimumBigInt = ethers.parseUnits(amountOutMinimum, 18)
+
+  const encodedParams = ethers.AbiCoder.defaultAbiCoder().encode(
+    ['address', 'address', 'uint24', 'address', 'uint256', 'uint256', 'uint160', 'uint256'],
+    [tokenIn, tokenOut, fee, recipient, amountInBigInt, amountOutMinimumBigInt, sqrtPriceLimitX96, deadline]
+  )
+
+  const data = functionSelector + encodedParams.substring(2)
+
+  const tx = await signer.sendTransaction({
+    to: swapRouterAddress,
+    data: data,
+  })
+  const receipt = await tx.wait()
+  return receipt
 }
