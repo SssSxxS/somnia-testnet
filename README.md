@@ -4,7 +4,7 @@ A command-line interface tool for interacting with the Somnia Testnet blockchain
 
 [![Telegram](https://img.shields.io/badge/Telegram-26A5E4?logo=telegram&logoColor=fff&style=flat-square)](https://t.me/yofomo) [![YouTube](https://img.shields.io/badge/YouTube-F00?logo=youtube&logoColor=fff&style=flat-square)](https://www.youtube.com/watch?v=Ub8JLuCVQh8)
 
-![Interface](https://i.postimg.cc/SKpSghtH/Screenshot-2025-02-25-132337.png)
+![Interface](https://i.postimg.cc/8C49gBb3/Screenshot-2025-03-12-182221.png)
 
 <div align="center">
 
@@ -50,7 +50,7 @@ bun install && bun .\index.ts
 4. Update the wallets information by selecting "Create or Update Wallets Table"
 5. Toggle wallets "ON"/"OFF" as needed
 6. Edit the `config.ts` file in the `data` folder as needed
-   ![Config](https://i.postimg.cc/13QFp2Dt/Screenshot-2025-02-23-221909.png)
+   ![Config](https://i.postimg.cc/wjp962hT/Screenshot-2025-03-12-182247.png)
 7. Use other menu options
 
 ## Errors
