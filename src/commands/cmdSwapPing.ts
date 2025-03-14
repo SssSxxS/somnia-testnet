@@ -33,7 +33,7 @@ export const cmdSwapPing = async () => {
           '0x7968ac15a72629e05f41b8271e4e7292e0cc9f90',
           amount,
           wallet.address.replace(/^0x/, '').toLowerCase(),
-          String((amount * 0.999).toFixed(3))
+          String((amount * 0.97).toFixed(3))
         )
         logger.success(`(${wallet.id}) Swap ${amount} $PING ${SOMNIA_TESTNET_EXPLORER_URL}/tx/${swap?.hash}`)
 
